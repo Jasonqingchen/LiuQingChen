@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap type="ProductModel" id="ProductResult">
 		<id column="id" jdbcType="VARCHAR" property="id" />
-		<id column="productname" jdbcType="VARCHAR" property="productname" />
+		<result column="productname" jdbcType="VARCHAR" property="productname" />
 		<result column="date" jdbcType="VARCHAR" property="date" />
 		<result column="rkname" jdbcType="VARCHAR" property="rkname" />
 		<result column="bz" jdbcType="VARCHAR" property="bz" />
