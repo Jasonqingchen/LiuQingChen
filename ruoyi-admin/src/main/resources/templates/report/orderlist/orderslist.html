@@ -25,42 +25,42 @@
 <body class="gray-bg">
 <div class="container-div">
 	<div class="row">
-	<div class="col-sm-12 search-collapse wow bounceInLeft"  data-wow-duration="1s">
-		<form id="client-from">
-			<input type="hidden" id="id" name="id">
-			<div class="select-list">
-				<ul>
-					<li>
-						客户：<input type="text" name="name" id="name" placeholder="客户姓名"/>
-					</li>
-					<li>
-						支付月份：<input type="text" name="month" id="month" placeholder="yyyy-MM"/>
-					</li>
-					<li>
-						销售：<input type="text" name="ssxs" id="ssxs" placeholder="所属销售"/>
-					</li>
-					<li>
-						<select name="status" id="status" class="form-control m-b" th:with="type=${@dict.getType('report_order_status')}">
-							<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-						</select>
-					</li>
-					<li>
-						<input type="date" class="form-control" name="date" id="date" placeholder="yyyy-MM-dd"/>
-					</li>
-					<li>
+		<div class="col-sm-12 search-collapse wow bounceInLeft"  data-wow-duration="1s">
+			<form id="client-from">
+				<input type="hidden" id="id" name="id">
+				<div class="select-list">
+					<ul>
+						<li>
+							客户：<input type="text" name="name" id="name" placeholder="客户姓名"/>
+						</li>
+						<li>
+							支付月份：<input type="text" name="month" id="month" placeholder="yyyy-MM"/>
+						</li>
+						<li>
+							销售：<input type="text" name="ssxs" id="ssxs" placeholder="所属销售"/>
+						</li>
+						<li>
+							<select name="status" id="status" class="form-control m-b" th:with="type=${@dict.getType('report_order_status')}">
+								<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+							</select>
+						</li>
+						<li>
+							<input type="date" class="form-control" name="date" id="date" placeholder="yyyy-MM-dd"/>
+						</li>
+						<li>
 
-						<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-						<a class="btn btn-warning btn-rounded btn-sm" onclick="resetPre()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-					</li>
-				</ul>
-			</div>
-		</form>
-	</div>
-     	<div class="btn-group-sm wow bounceInRight"  data-wow-duration="1s" id="toolbar" role="group">
+							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							<a class="btn btn-warning btn-rounded btn-sm" onclick="resetPre()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+						</li>
+					</ul>
+				</div>
+			</form>
+		</div>
+		<div class="btn-group-sm wow bounceInRight"  data-wow-duration="1s" id="toolbar" role="group">
 
-	        <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()">
-	            <i class="fa fa-remove"></i> 批量删除
-	        </a>
+			<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()">
+				<i class="fa fa-remove"></i> 批量删除
+			</a>
 			<a class="btn btn-info multiple disabled" onclick="$.operate.conform()">
 				<i class="filter"></i> 审核下推
 			</a>
@@ -69,13 +69,13 @@
 			</a>
 
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #bd2c00;"><strong>注意：若添加订单请移步到客户列表页面</strong></span>
-        </div>
-			<div class="col-sm-12 select-table table-bordered wow bounceInRight"  data-wow-duration="1s">
-					<table id="bootstrap-table" data-resizable="true"
-						   data-reorderable-columns="true" class="fixed-table-toolbar"></table>
-			</div>
+		</div>
+		<div class="col-sm-12 select-table table-bordered wow bounceInRight"  data-wow-duration="1s">
+			<table id="bootstrap-table" data-resizable="true"
+				   data-reorderable-columns="true" class="fixed-table-toolbar"></table>
 		</div>
 	</div>
+</div>
 </table>
 
 <!--模态弹框-->
@@ -87,7 +87,7 @@
 				<div class="col-sm-12">
 					<div class="ibox-content p-xl">
 						<div style="text-align: center;font-size: 25px;">
-						<strong></strong><br>
+							<strong></strong><br>
 						</div>
 						<div class="wrapper wrapper-content animated fadeInRight">
 							<div class="row">
@@ -145,7 +145,7 @@
 										</table>
 										<!-- 打印网页时通过hidden-print隐藏元素 -->
 										<div class="text-right hidden-print">
-												<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+											<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
 											<button class="btn btn-primary" onclick="printPage()"><i class="fa fa-print"></i>打印</button>
 										</div>
 									</div>
@@ -162,90 +162,90 @@
 		</div>
 	</div>
 </div>
-	<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer" />
 <th:block th:include="include :: bootstrap-table-resizable-js" />
 <script src="/static/js/wow.js" th:src="@{/js/wow.js}"></script>
-    <script th:inline="javascript">
-		new WOW().init();
-        var prefix = ctx + "report/orderlist";
-        var datas = [[${@dict.getType('report_order_status')}]];
-		var dataout = [[${@dict.getType('product_out_status')}]];
-		var html = [];
-        $(function() {
-            var options = {
-                url: prefix + "/list",
-                createUrl: prefix + "/add",
-                removeUrl: prefix + "/remove",
-				confirmorder: prefix + "/conform",
-				fconfirmoutorder: prefix + "/fconform",
-				ordersUrl: prefix + "/order/{id}",
-                exportUrl: prefix + "/export",
-                importUrl: prefix + "/importData",
-                importTemplateUrl: prefix + "/importTemplate",
-		        showSearch: false,
-		        showRefresh: false,
-		        showToggle: false,
-		        showColumns: false,
-		        search: false,
-				rememberSelected: true,
-		        modalName: "客户",
-				showColumns: true,
-				models:[],
-                columns: [{
-		            checkbox: true
-		        },{
-					field : 'id',
-					title : '客户 ID',
-					visible:false
-				},{
-					field : 'ssxs',
-					title : '所属销售',
-					width:150,
-				},
+<script th:inline="javascript">
+	new WOW().init();
+	var prefix = ctx + "report/orderlist";
+	var datas = [[${@dict.getType('report_order_status')}]];
+	var dataout = [[${@dict.getType('product_out_status')}]];
+	var html = [];
+	$(function() {
+		var options = {
+			url: prefix + "/list",
+			createUrl: prefix + "/add",
+			removeUrl: prefix + "/remove",
+			confirmorder: prefix + "/conform",
+			fconfirmoutorder: prefix + "/fconform",
+			ordersUrl: prefix + "/order/{id}",
+			exportUrl: prefix + "/export",
+			importUrl: prefix + "/importData",
+			importTemplateUrl: prefix + "/importTemplate",
+			showSearch: false,
+			showRefresh: false,
+			showToggle: false,
+			showColumns: false,
+			search: false,
+			rememberSelected: true,
+			modalName: "客户",
+			showColumns: true,
+			models:[],
+			columns: [{
+				checkbox: true
+			},{
+				field : 'id',
+				title : '客户 ID',
+				visible:false
+			},{
+				field : 'ssxs',
+				title : '所属销售',
+				width:150,
+			},
 				{
 					field : 'name',
 					title : '客户姓名',
 					width:200,
 				},
-					{
-						field : 'pay',
-						title : '支付金额',
-						width:30,
-					},{
+				{
+					field : 'pay',
+					title : '支付金额',
+					width:30,
+				},{
 					field : 'receiptnumber',
 					title : '发票编号',
-						width:100,
+					width:100,
 				},{
-						field : 'month',
-						title : '支付月份',
-						width:100,
-					},{
-						field : 'date',
-						title : '支付时间',
-						width:100,
+					field : 'month',
+					title : '支付月份',
+					width:100,
+				},{
+					field : 'date',
+					title : '支付时间',
+					width:100,
+				},
+				{
+					field : 'status',
+					title : '订单审核状态',formatter: function(value, row, index) {
+						return $.table.selectDictLabel(datas, value);
 					},
-					{
-						field : 'status',
-						title : '订单审核状态',formatter: function(value, row, index) {
-							return $.table.selectDictLabel(datas, value);
-						},
-						width:25,
+					width:25,
+				},
+				{
+					field : 'outstatus',
+					title : '出库审核状态',formatter: function(value, row, index) {
+						return $.table.selectDictLabel(dataout, value);
 					},
-					{
-						field : 'outstatus',
-						title : '出库审核状态',formatter: function(value, row, index) {
-							return $.table.selectDictLabel(dataout, value);
-						},
-						width:25,
-					},{
-						field : 'bz',
-						title : '备注',
-					},{
-		            title: '操作',
-		            align: 'center',
+					width:25,
+				},{
+					field : 'bz',
+					title : '备注',
+				},{
+					title: '操作',
+					align: 'center',
 					width:300,
-		            formatter: function(value, row, index) {
-		            	var actions = [];
+					formatter: function(value, row, index) {
+						var actions = [];
 						if(row.status == '已审核'){
 							actions.push('<button disabled class="btn btn-warning btn-xs" href="javascript:;" onclick="$.operate.order(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑订单</button>&nbsp;&nbsp;&nbsp;');
 						} else {
@@ -266,55 +266,55 @@
 							actions.push('<button  disabled class="btn btn-xs btn-success"  data-target="#printArea" onclick="printOrder(\'' + row.id + '\')" data-toggle="modal" ><i class="glyphicon glyphicon-print"></i>打印订单</button>');
 						}
 						return actions.join('');
-		            }
-		        }]
-            };
-            $.table.init(options);
-        });
-		//打印返回数据
-		function printOrder(id){
-			document.getElementById("vfor").innerHTML='';
-			$.ajax({
-				url: prefix + "/back",
-				type: 'POST', // 或 'POST' 等其他HTTP方法
-				dataType: 'json', // 期望从服务器返回的数据类型
-				data: {'id':id},
-				async: false,
-				success: function(data) {
-					var count = 0;
-					document.getElementById("ddate").innerText=data.data.Model[0].date;
-					document.getElementById("ssxsy").innerText=data.data.Model[0].ssxs;
-					document.getElementById("code").innerText=data.data.Model[0].receiptnumber;
-					document.getElementById("cus").innerText=data.data.Model[0].name;
-					document.getElementById("dydate").innerText=new Date();
-					for (let i = 0; i < data.data.Model.length; i++) {
-						document.getElementById("vfor").innerHTML+="<tr>\n" +
-									"<td style=\"width: 50px;\"><strong>"+(i+1)+"</strong></td>\n" +
-									"<td><strong>"+data.data.Model[i].productname+"</strong></td>\n" +
-									"<td><strong>"+data.data.Model[i].cou+"</strong></td>\n" +
-									"<td><strong>"+data.data.Model[i].price+"</strong></td>\n" +
-									"<td><strong>"+data.data.Model[i].psize+"</strong></td>\n" +
-									"<td><strong style='font-size: 15px;'>"+(data.data.Model[i].price * data.data.Model[i].cou)+"</strong></td>\n" +
-									"</tr><br>";
-						count+=(data.data.Model[i].price * data.data.Model[i].cou);
 					}
-					document.getElementById("count").innerText=count;
-				},
-				error: function(xhr, status, error) {
-					// 请求失败，处理错误情况
-					console.error('Error: ' + error);
+				}]
+		};
+		$.table.init(options);
+	});
+	//打印返回数据
+	function printOrder(id){
+		document.getElementById("vfor").innerHTML='';
+		$.ajax({
+			url: prefix + "/back",
+			type: 'POST', // 或 'POST' 等其他HTTP方法
+			dataType: 'json', // 期望从服务器返回的数据类型
+			data: {'id':id},
+			async: false,
+			success: function(data) {
+				var count = 0;
+				document.getElementById("ddate").innerText=data.data.Model[0].date;
+				document.getElementById("ssxsy").innerText=data.data.Model[0].ssxs;
+				document.getElementById("code").innerText=data.data.Model[0].receiptnumber;
+				document.getElementById("cus").innerText=data.data.Model[0].name;
+				document.getElementById("dydate").innerText=new Date();
+				for (let i = 0; i < data.data.Model.length; i++) {
+					document.getElementById("vfor").innerHTML+="<tr>\n" +
+							"<td style=\"width: 50px;\"><strong>"+(i+1)+"</strong></td>\n" +
+							"<td><strong>"+data.data.Model[i].productname+"</strong></td>\n" +
+							"<td><strong>"+data.data.Model[i].cou+"</strong></td>\n" +
+							"<td><strong>"+data.data.Model[i].price+"</strong></td>\n" +
+							"<td><strong>"+data.data.Model[i].psize+"</strong></td>\n" +
+							"<td><strong style='font-size: 15px;'>"+(data.data.Model[i].price * data.data.Model[i].cou)+"</strong></td>\n" +
+							"</tr><br>";
+					count+=(data.data.Model[i].price * data.data.Model[i].cou);
 				}
-			});
-		}
-		function resetPre() {
-			resetDate();
-			$("#client-from")[0].reset();
-			$.table.search();
-		}
-		/*打印*/
-		function printPage() {
-			window.print();
-		}
-    </script>
+				document.getElementById("count").innerText=count;
+			},
+			error: function(xhr, status, error) {
+				// 请求失败，处理错误情况
+				console.error('Error: ' + error);
+			}
+		});
+	}
+	function resetPre() {
+		resetDate();
+		$("#client-from")[0].reset();
+		$.table.search();
+	}
+	/*打印*/
+	function printPage() {
+		window.print();
+	}
+</script>
 </body>
 </html>
