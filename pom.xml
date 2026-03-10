@@ -7,9 +7,9 @@
     <artifactId>ruoyi</artifactId>
     <version>4.8.1</version>
 
-    <name>tiantang</name>
+    <name>liuqingchen</name>
     <url></url>
-    <description>TianTangGroup管理系统</description>
+    <description>liuqingchen管理系统</description>
     
     <properties>
         <ruoyi.version>4.8.1</ruoyi.version>
